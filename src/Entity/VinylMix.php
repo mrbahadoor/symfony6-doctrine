@@ -27,10 +27,16 @@ class VinylMix
     private ?string $genre = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private \DateTimeImmutable $createdAt;
 
     #[ORM\Column]
-    private ?int $votes = null;
+    private int $votes = 0;
+
+    // CreatedAt will be set to the current date and time when the object is created
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
