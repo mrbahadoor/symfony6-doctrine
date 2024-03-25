@@ -20,7 +20,10 @@
         <div class="row">
             {% for mix in mixes %}
             <div class="col col-md-4">
-                <div class="mixed-vinyl-container p-3 text-center">
+                <a 
+                    href="{{ path('app_mix_show', {id: mix.id}) }}" 
+                    class="text-decoration-none" 
+                class="mixed-vinyl-container p-3 text-center">
                     <img src="{{ mix.imageUrl(300) }}" alt="Mix album cover">
                     <p class="mt-2"><strong>{{ mix.title }}</strong></p>
                     <span>{{ mix.trackCount }} Tracks</span>
@@ -30,7 +33,7 @@
                     <span>{{ mix.createdAt|ago }}</span>
                     <br/>
                     {{ mix.votesString }} vote{% if mix.votes != 1%}s{% endif %}
-                </div>
+                </a>
             </div>
             {% endfor %}
         </div>
