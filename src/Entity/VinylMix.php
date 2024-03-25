@@ -130,4 +130,9 @@ class VinylMix
             $width
         );
     }
+
+    public static function getGenres(): array
+    {
+      return ['pop', 'rock', 'jazz', 'blues', 'classical', 'hip-hop', 'rap', 'country', 'metal', 'reggae'];
+    }
 }

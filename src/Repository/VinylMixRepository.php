@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\VinylMix;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @extends ServiceEntityRepository<VinylMix>
@@ -39,20 +40,31 @@ class VinylMixRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return VinylMix[] Returns an array of VinylMix objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('v')
-//            ->andWhere('v.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('v.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return VinylMix[] Returns an array of VinylMix objects
+    */
+   public function findAllOrderdedByVotes(string $genre = null): array
+   {
+        // Line below is the same as: SELECT * FROM vinyl_mix AS mix ORDER BY votes DESC
+        $queryBuilder = $this->createQueryBuilder('mix');
+        
+        if ($genre) {
+            $queryBuilder
+                ->andWhere('mix.genre = :genre') //Always use andWhere to avoid overriding the where clause
+                ->setParameter('genre', $genre);
+        }
+
+        return  $queryBuilder->getQuery() // Query object
+           ->getResult() // return array of objects
+        //    ->getOneOrNullResult() // return one object
+       ;
+   }
+
+   private function addOrderByVotesQueryBuilder(QueryBuilder $queryBuilder): QueryBuilder
+   {   
+        $queryBuilder = $queryBuilder ?? $this->createQueryBuilder('mix');
+        return $queryBuilder->orderBy('mix.votes', 'DESC');
+   }
 
 //    public function findOneBySomeField($value): ?VinylMix
 //    {
