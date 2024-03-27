@@ -14,8 +14,8 @@
                 <p>{{ mix.description }}</p>
 
                 {{ mix.votesString }} votes
-                {# {{ path('app_mix_vote', {id: mix.id }) }} #}
-                <form action="" method="POST">
+                
+                <form action="{{ path('app_mix_vote', {id: mix.id }) }}" method="POST">
                     <button
                         type="submit"
                         class="btn btn-outline-primary"
