@@ -38,10 +38,10 @@ class MixController extends AbstractController
 
     }
 
-    #[Route('/mix/{id}', name: 'app_mix_show')]
-    public function show(int $id, VinylMixRepository $mixRepository): Response
+    #[Route('/mix/{slug}', name: 'app_mix_show')]
+    public function show(string $slug, VinylMixRepository $mixRepository): Response
     {
-        $mix = $mixRepository->find($id);
+        $mix = $mixRepository->findOneBy(['slug' => $slug]);
         
         return $this->render('mix/show.html.twig', [
             'mix' => $mix,
@@ -64,6 +64,6 @@ class MixController extends AbstractController
 
         $this->addFlash('success', 'Your vote was counted!');
 
-        return $this->redirectToRoute('app_mix_show', ['id' => $mix->getId()]);
+        return $this->redirectToRoute('app_mix_show', ['slug' => $mix->getSlug()]);
     }
 }
