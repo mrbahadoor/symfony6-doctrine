@@ -135,4 +135,14 @@ class VinylMix
     {
       return ['pop', 'rock', 'jazz', 'blues', 'classical', 'hip-hop', 'rap', 'country', 'metal', 'reggae'];
     }
+
+    public function upVote(): void
+    {
+        $this->votes++;
+    }
+
+    public function downVote(): void
+    {
+        $this->votes--;
+    }
 }
